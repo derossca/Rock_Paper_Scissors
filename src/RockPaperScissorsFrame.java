@@ -143,7 +143,7 @@ public class RockPaperScissorsFrame extends JFrame {
         results = new JTextArea();
 
         //making it so game results can be scrolled thru
-        scroll = new JScrollPane(results, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scroll = new JScrollPane(results);
         scroll.setSize(300,300);
     }
 
