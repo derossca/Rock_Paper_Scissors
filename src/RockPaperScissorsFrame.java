@@ -22,7 +22,6 @@ public class RockPaperScissorsFrame extends JFrame {
     ImageIcon rockIcon;
     ImageIcon paperIcon;
     ImageIcon scissorsIcon;
-    ImageIcon quitIcon;
 
     JLabel titleLabel;
     JLabel playerWinsLabel;
@@ -72,7 +71,7 @@ public class RockPaperScissorsFrame extends JFrame {
         paperIcon = new ImageIcon(new ImageIcon("src/paper.jpg").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
         scissorsIcon = new ImageIcon(new ImageIcon("src/scissors.jpg").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
 
-        //setting buttongs to their icons and adding action events for when they're clicked
+        //setting buttons to their icons and adding action events for when they're clicked
         rockBtn = new JButton(rockIcon);
         rockBtn.addActionListener(e -> {getMove("R");});
         btnPnl.add(rockBtn);
@@ -98,6 +97,15 @@ public class RockPaperScissorsFrame extends JFrame {
 
     private void statsPanel() {
 
+        //making new jpanel with a grid layout
+        statsPnl = new JPanel();
+        statsPnl.setLayout(new GridLayout(2, 3));
+
+        playerWinsLabel = new JLabel("Player Wins: ", JLabel.CENTER);
+        computerWinsLabel = new JLabel("Computer Wins: ", JLabel.CENTER);
+        tieLabel = new JLabel("Tie: ", JLabel.CENTER);
+
+
     }
 
     private void resultsPanel() {
@@ -117,5 +125,7 @@ public class RockPaperScissorsFrame extends JFrame {
         setLocation(screenWidth / 8 , screenHeight / 8);
     }
 
+    private String getMove(String move) {
 
+    }
 }
