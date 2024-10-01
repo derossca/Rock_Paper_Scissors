@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class RockPaperScissorsFrame extends JFrame {
 
@@ -19,6 +21,7 @@ public class RockPaperScissorsFrame extends JFrame {
     ImageIcon scissorsIcon;
     ImageIcon quitIcon;
 
+    JLabel titleLabel;
     JLabel playerWinsLabel;
     JLabel computerWinsLabel;
     JLabel tieLabel;
@@ -54,10 +57,26 @@ public class RockPaperScissorsFrame extends JFrame {
         setVisible(true);
     }
 
+    //method to make buttons for game play
     private void buttonsPanel() {
         btnPnl = new JPanel();
+        btnPnl.setLayout(new GridLayout(1, 4));
 
-        rockIcon = new ImageIcon("src/")
+        rockIcon = new ImageIcon(new ImageIcon("src/rock.jpg").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
+        paperIcon = new ImageIcon(new ImageIcon("src/paper.jpg").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
+        scissorsIcon = new ImageIcon(new ImageIcon("src/scissors.jpg").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
+
+        rockBtn = new JButton(rockIcon);
+        rockBtn.addActionListener(e -> {gameLogic("R")});
+
+
+
+        paperBtn = new JButton(paperIcon);
+        scissorsBtn = new JButton(scissorsIcon);
+
+
+        quitBtn = new JButton("Quit");
+        quitBtn.addActionListener(e -> {System.exit(0);});
     }
 
     private void statsPanel() {
@@ -79,5 +98,9 @@ public class RockPaperScissorsFrame extends JFrame {
         //centering frame
         setSize(screenWidth * 3 / 4, screenHeight * 3 / 4);
         setLocation(screenWidth / 8 , screenHeight / 8);
+    }
+
+    private void gameLogic(String move) {
+
     }
 }
