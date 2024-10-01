@@ -45,7 +45,7 @@ public class RockPaperScissorsFrame extends JFrame {
     //constructor for RPS Frame
     public RockPaperScissorsFrame() {
 
-        //createCenterFrame();
+        createCenterFrame();
 
         setTitle("Rock Paper Scissors");
 
@@ -68,9 +68,9 @@ public class RockPaperScissorsFrame extends JFrame {
         statsPanel.setLayout(new GridLayout(2,3));
 
         //jlabels for results of game
-        playerWinsLabel = new JLabel("Player Wins!", JLabel.CENTER);
-        compWinsLabel = new JLabel("Comp Wins!", JLabel.CENTER);
-        tieLabel = new JLabel("Tie!", JLabel.CENTER);
+        JLabel playerWinsLabel = new JLabel("Player Wins!", JLabel.CENTER);
+        JLabel compWinsLabel = new JLabel("Comp Wins!", JLabel.CENTER);
+        JLabel tieLabel = new JLabel("Tie!", JLabel.CENTER);
 
         //text fields for keeping count of player/comp wins and ties
         playerWinsField =  new JTextField("0", 4);
@@ -136,9 +136,9 @@ public class RockPaperScissorsFrame extends JFrame {
         quitBtn = new JButton("Quit");
 
         //adding action listeners to make buttons functional
-        rockBtn.addActionListener(e -> gameMove("R"));
-        paperBtn.addActionListener(e -> gameMove("P"));
-        scissorsBtn.addActionListener(e -> gameMove("S"));
+        rockBtn.addActionListener(e -> playerMove("R"));
+        paperBtn.addActionListener(e -> playerMove("P"));
+        scissorsBtn.addActionListener(e -> playerMove("S"));
         quitBtn.addActionListener(e -> System.exit(0));
 
         //adding buttons to the panel
@@ -154,8 +154,20 @@ public class RockPaperScissorsFrame extends JFrame {
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
     }
 
-    //now we need moves from the player and computer to determine winner and play game
-    private void gameMove(String move) {
+    //centering and sizing the frame
+    private void createCenterFrame() {
+        //screen dimensions
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Dimension screenSize = toolkit.getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+        //center frame
+        setSize(screenWidth * 3 / 4, screenHeight * 3 / 4);
+        setLocation(screenWidth / 8, screenHeight / 8);
+    }
+
+    //now we need moves from the player
+    private void playerMove(String move) {
         final int ROCK = 0;
         final int PAPER = 1;
         final int SCISSORS = 2;
@@ -170,10 +182,18 @@ public class RockPaperScissorsFrame extends JFrame {
         } else {
             userMove = SCISSORS;
         }
+    }
 
-        //need variables to generate random move for comp
+    private void computerMove(String move) {
+        final int ROCK = 0;
+        final int PAPER = 1;
+        final int SCISSORS = 2;
+
         Random rnd = new Random();
+
         int i = 0;
-        ArrayList<>
+        i = rnd.nextInt(3);
+
+        move = ;
     }
 }
