@@ -54,7 +54,7 @@ public class RockPaperScissorsFrame extends JFrame {
 
         createStatsPanel();
         createResultsPanel();
-        //createButtonsPanel();
+        createButtonsPanel();
 
         add(mainPanel);
 
@@ -68,9 +68,9 @@ public class RockPaperScissorsFrame extends JFrame {
         statsPanel.setLayout(new GridLayout(2,3));
 
         //jlabels for results of game
-        JLabel playerWinsLabel = new JLabel("Player Wins!", JLabel.CENTER);
-        JLabel compWinsLabel = new JLabel("Comp Wins!", JLabel.CENTER);
-        JLabel tieLabel = new JLabel("Tie!", JLabel.CENTER);
+        playerWinsLabel = new JLabel("Player Wins!", JLabel.CENTER);
+        compWinsLabel = new JLabel("Comp Wins!", JLabel.CENTER);
+        tieLabel = new JLabel("Tie!", JLabel.CENTER);
 
         //text fields for keeping count of player/comp wins and ties
         playerWinsField =  new JTextField("0", 4);
@@ -107,5 +107,73 @@ public class RockPaperScissorsFrame extends JFrame {
         scroll = new JScrollPane(resultsArea);
 
         mainPanel.add(scroll, BorderLayout.CENTER);
+    }
+
+    private void createButtonsPanel() {
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(1, 4));
+
+        //setting and scaling all icons
+        rockIcon = new ImageIcon("src/rock.png");
+        Image rockImage = rockIcon.getImage();
+        Image rockIconImage = rockImage.getScaledInstance(350, 350, Image.SCALE_SMOOTH);
+        rockIcon.setImage(rockIconImage);
+
+        paperIcon = new ImageIcon("src/paper.png");
+        Image paperImage = paperIcon.getImage();
+        Image paperIconImage = paperImage.getScaledInstance(350, 350, Image.SCALE_SMOOTH);
+        paperIcon.setImage(paperIconImage);
+
+        scissorsIcon = new ImageIcon("src/scissors.png");
+        Image scissorsImage = scissorsIcon.getImage();
+        Image scissorsIconImage = scissorsImage.getScaledInstance(350, 350, Image.SCALE_SMOOTH);
+        scissorsIcon.setImage(scissorsIconImage);
+
+        //creating buttons
+        rockBtn = new JButton(rockIcon);
+        paperBtn = new JButton(paperIcon);
+        scissorsBtn = new JButton(scissorsIcon);
+        quitBtn = new JButton("Quit");
+
+        //adding action listeners to make buttons functional
+        rockBtn.addActionListener(e -> gameMove("R"));
+        paperBtn.addActionListener(e -> gameMove("P"));
+        scissorsBtn.addActionListener(e -> gameMove("S"));
+        quitBtn.addActionListener(e -> System.exit(0));
+
+        //adding buttons to the panel
+        buttonPanel.add(rockBtn);
+        buttonPanel.add(paperBtn);
+        buttonPanel.add(scissorsBtn);
+
+        //adding a border to this panel
+        Border border = BorderFactory.createLineBorder(Color.BLACK, 3);
+        buttonPanel.setBorder(border);
+
+        //adding button panel to main panel
+        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+    }
+
+    //now we need moves from the player and computer to determine winner and play game
+    private void gameMove(String move) {
+        final int ROCK = 0;
+        final int PAPER = 1;
+        final int SCISSORS = 2;
+
+        //userMove that corresponds to the index to get correct move
+        int userMove;
+
+        if(move.equals("R")) {
+            userMove = ROCK;
+        } else if(move.equals("P")) {
+            userMove = PAPER;
+        } else {
+            userMove = SCISSORS;
+        }
+
+        //need variables to generate random move for comp
+        Random rnd = new Random();
+        int i = 0;
+        ArrayList<>
     }
 }
