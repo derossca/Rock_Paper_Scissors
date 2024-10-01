@@ -35,6 +35,7 @@ public class RockPaperScissorsFrame extends JFrame {
     int playerWinCnt;
     int computerWinCnt;
     int tieCnt;
+    int numGamesPlayed;
 
     JTextArea results;
 
@@ -133,7 +134,17 @@ public class RockPaperScissorsFrame extends JFrame {
     }
 
     private void resultsPanel() {
+        //making panel
+        resultsPnl = new JPanel();
+        resultsPnl.setLayout(new GridLayout(1, 1));
+        resultsPnl.setSize(400,400);
 
+        //putting results in text area
+        results = new JTextArea();
+
+        //making it so game results can be scrolled thru
+        scroll = new JScrollPane(results, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scroll.setSize(300,300);
     }
 
     //method to center frame
@@ -149,7 +160,74 @@ public class RockPaperScissorsFrame extends JFrame {
         setLocation(screenWidth / 8 , screenHeight / 8);
     }
 
-    private String getMove(String move) {
+    private void getMove(String move) {
+        Random rnd = new Random();
+        int i = 0;
+        ArrayList<String> moves = new ArrayList<>();
+        moves.add("Rock");
+        moves.add("Paper");
+        moves.add("Scissors");
 
+        i = rnd.nextInt(moves.size());
+
+        String computerMove = moves.get(i);
+
+        determineWinner(move, computerMove);
+    }
+
+    private void determineWinner(String move, String computerMove) {
+
+        //keeping track of num of games played
+        numGamesPlayed++;
+        //result corresponds with array index to display correct winner or tie
+        int result = 0;
+        ArrayList<String> winner = new ArrayList<>();
+        winner.add("Player Wins!");
+        winner.add("Computer Wins!");
+        winner.add("Tie!");
+
+        //determining winner
+        if(move == "Rock" && computerMove == "Rock") {
+            result = 2;
+        } else if(move == "Rock" && computerMove == "Paper") {
+            result = 1;
+        } else if(move == "Rock" && computerMove == "Scissors") {
+            result = 0;
+        } else if(move == "Paper" && computerMove == "Paper") {
+            result = 2;
+        } else if(move == "Paper" && computerMove == "Scissors") {
+            result = 1;
+        } else if(move == "Paper" && computerMove == "Rock") {
+            result = 0;
+        } else if(move == "Scissors" && computerMove == "Scissors") {
+            result = 2;
+        } else if(move == "Scissors" && computerMove == "Rock") {
+            result = 1;
+        } else if(move == "Scissors" && computerMove == "Paper") {
+            result = 0;
+        }
+
+        //displays results
+        results.append("Game #" + numGamesPlayed + "\t Player Move: " + move + "\t Computer Move: " + computerMove + "\t Result: " + winner.get(result));
+
+        //updating count of ties, wins based on results
+        updateCount(result);
+    }
+
+    private void updateCount(int cnt) {
+        switch (cnt) {
+            case 0:
+                playerWinCnt += 1;
+                playerWinsField.setText(Integer.toString(playerWinCnt));
+                break;
+            case 1:
+                computerWinCnt += 1;
+                computerWinsField.setText(Integer.toString(computerWinCnt));
+                break;
+            case 2:
+                tieCnt += 1;
+                tieField.setText(Integer.toString(tieCnt));
+                break;
+        }
     }
 }
