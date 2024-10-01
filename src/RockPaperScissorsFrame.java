@@ -19,13 +19,15 @@ public class RockPaperScissorsFrame extends JFrame {
     ImageIcon scissorsIcon;
     ImageIcon quitIcon;
 
-    JLabel p1Lbl;
-    JLabel p2Lbl;
-    JLabel tieLbl;
+    JLabel playerWinsLabel;
+    JLabel computerWinsLabel;
+    JLabel tieLabel;
 
-    JTextField p1Field;
-    JTextField p2Field;
+    JTextField playerWinsField;
+    JTextField computerWinsField;
     JTextField tieField;
+
+    int winscnt;
 
     JTextArea results;
 
@@ -33,6 +35,7 @@ public class RockPaperScissorsFrame extends JFrame {
 
     //main panel that encapsulates all other panels
     public RockPaperScissorsFrame() {
+
         centerFrame();
 
         mainPnl = new JPanel();
@@ -52,7 +55,9 @@ public class RockPaperScissorsFrame extends JFrame {
     }
 
     private void buttonsPanel() {
+        btnPnl = new JPanel();
 
+        rockIcon = new ImageIcon("src/")
     }
 
     private void statsPanel() {
@@ -63,11 +68,15 @@ public class RockPaperScissorsFrame extends JFrame {
 
     }
 
+    //method to center frame
     private void centerFrame() {
+        //getting toolkit and dimensions of screen
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension screenSize = toolkit.getScreenSize();
         int screenHeight = screenSize.height;
         int screenWidth = screenSize.width;
+
+        //centering frame
         setSize(screenWidth * 3 / 4, screenHeight * 3 / 4);
         setLocation(screenWidth / 8 , screenHeight / 8);
     }
