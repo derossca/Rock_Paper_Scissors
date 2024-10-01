@@ -1,7 +1,10 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class RockPaperScissorsFrame extends JFrame {
 
@@ -59,24 +62,38 @@ public class RockPaperScissorsFrame extends JFrame {
 
     //method to make buttons for game play
     private void buttonsPanel() {
+
+        //making grid layout for buttons panel
         btnPnl = new JPanel();
         btnPnl.setLayout(new GridLayout(1, 4));
 
+        //adding icons
         rockIcon = new ImageIcon(new ImageIcon("src/rock.jpg").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
         paperIcon = new ImageIcon(new ImageIcon("src/paper.jpg").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
         scissorsIcon = new ImageIcon(new ImageIcon("src/scissors.jpg").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
 
+        //setting buttongs to their icons and adding action events for when they're clicked
         rockBtn = new JButton(rockIcon);
-        rockBtn.addActionListener(e -> {gameLogic("R")});
-
-
+        rockBtn.addActionListener(e -> {getMove("R");});
+        btnPnl.add(rockBtn);
 
         paperBtn = new JButton(paperIcon);
-        scissorsBtn = new JButton(scissorsIcon);
+        paperBtn.addActionListener(e -> {getMove("P");});
+        btnPnl.add(paperBtn);
 
+        scissorsBtn = new JButton(scissorsIcon);
+        scissorsBtn.addActionListener(e -> {getMove("S");});
+        btnPnl.add(scissorsBtn);
 
         quitBtn = new JButton("Quit");
         quitBtn.addActionListener(e -> {System.exit(0);});
+
+        //Adding a border to the panel
+        Border border = BorderFactory.createLineBorder(Color.black, 2);
+        btnPnl.setBorder(border);
+
+        //Adding panel to the main frame panel
+        mainPnl.add(btnPnl, BorderLayout.SOUTH);
     }
 
     private void statsPanel() {
@@ -100,7 +117,5 @@ public class RockPaperScissorsFrame extends JFrame {
         setLocation(screenWidth / 8 , screenHeight / 8);
     }
 
-    private void gameLogic(String move) {
 
-    }
 }
