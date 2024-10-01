@@ -32,7 +32,9 @@ public class RockPaperScissorsFrame extends JFrame {
     JTextField computerWinsField;
     JTextField tieField;
 
-    int winscnt;
+    int playerWinCnt;
+    int computerWinCnt;
+    int tieCnt;
 
     JTextArea results;
 
@@ -101,11 +103,33 @@ public class RockPaperScissorsFrame extends JFrame {
         statsPnl = new JPanel();
         statsPnl.setLayout(new GridLayout(2, 3));
 
+        //adding labels for results of game
         playerWinsLabel = new JLabel("Player Wins: ", JLabel.CENTER);
         computerWinsLabel = new JLabel("Computer Wins: ", JLabel.CENTER);
         tieLabel = new JLabel("Tie: ", JLabel.CENTER);
 
+        //displays stats for player
+        playerWinsField = new JTextField("0");
+        playerWinsField.setHorizontalAlignment(JTextField.CENTER);
+        playerWinsField.setEditable(false);
 
+        //displays stats for computer
+        computerWinsField = new JTextField("0");
+        computerWinsField.setHorizontalAlignment(JTextField.CENTER);
+        computerWinsField.setEditable(false);
+
+        //displays stats for ties
+        tieField = new JTextField("0");
+        tieField.setHorizontalAlignment(JTextField.CENTER);
+        tieField.setEditable(false);
+
+        //adding everthing to the panel
+        statsPnl.add(playerWinsLabel);
+        statsPnl.add(playerWinsField);
+        statsPnl.add(computerWinsLabel);
+        statsPnl.add(computerWinsField);
+        statsPnl.add(tieLabel);
+        statsPnl.add(tieField);
     }
 
     private void resultsPanel() {
