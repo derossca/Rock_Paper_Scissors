@@ -161,15 +161,18 @@ public class RockPaperScissorsFrame extends JFrame {
         setLocation(screenWidth / 8, screenHeight / 8);
     }
 
+
     //now we need to get a random move from the computer
     //***NEED HELP HERE***//
+
     private String computerMove() {
         String [] possibleMoves = {"Rock", "Paper", "Scissors"};
-        String computerMove;
-        computerMove = possibleMoves[new Random().nextInt(possibleMoves.length)];
+        String computersMove;
+        computersMove = possibleMoves[new Random().nextInt(possibleMoves.length)];
 
-        return computerMove;
+        return computersMove;
     }
+
 
     //now we need to get player move, compare to computer move, and play game
     private void game(String playerMove) {
