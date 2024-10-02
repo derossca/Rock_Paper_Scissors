@@ -1,9 +1,6 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Random;
 
 public class RockPaperScissorsFrame extends JFrame {
@@ -39,8 +36,6 @@ public class RockPaperScissorsFrame extends JFrame {
     int numPlayerWinCnt = 0;
     int numCompWinCnt = 0;
     int numTieCnt = 0;
-
-    ArrayList<Integer> playerMove = new ArrayList<>();
 
     //constructor for RPS Frame
     public RockPaperScissorsFrame() {
@@ -136,9 +131,9 @@ public class RockPaperScissorsFrame extends JFrame {
         quitBtn = new JButton("Quit");
 
         //adding action listeners to make buttons functional
-        rockBtn.addActionListener(e -> playerMove("R"));
-        paperBtn.addActionListener(e -> playerMove("P"));
-        scissorsBtn.addActionListener(e -> playerMove("S"));
+        rockBtn.addActionListener(e -> playerMove());
+        paperBtn.addActionListener(e -> playerMove());
+        scissorsBtn.addActionListener(e -> playerMove());
         quitBtn.addActionListener(e -> System.exit(0));
 
         //adding buttons to the panel
@@ -166,34 +161,42 @@ public class RockPaperScissorsFrame extends JFrame {
         setLocation(screenWidth / 8, screenHeight / 8);
     }
 
-    //now we need moves from the player
-    private void playerMove(String move) {
-        final int ROCK = 0;
-        final int PAPER = 1;
-        final int SCISSORS = 2;
+    //now we need to get a random move from the computer
+    private String computerMove() {
+        String [] possibleMoves = {"Rock", "Paper", "Scissors"};
+        String computerMove;
+        computerMove = possibleMoves[new Random().nextInt(possibleMoves.length)];
 
-        //userMove that corresponds to the index to get correct move
-        int userMove;
-
-        if(move.equals("R")) {
-            userMove = ROCK;
-        } else if(move.equals("P")) {
-            userMove = PAPER;
-        } else {
-            userMove = SCISSORS;
-        }
+        return computerMove;
     }
 
-    private void computerMove(String move) {
+    //now we need to get player move, compare to computer move, and play game
+    private void game(String playerMove) {
+
+        //getting players move
         final int ROCK = 0;
         final int PAPER = 1;
         final int SCISSORS = 2;
 
-        Random rnd = new Random();
+        int playersMove;
 
-        int i = 0;
-        i = rnd.nextInt(3);
+        if(playerMove.equals("Rock")) {
+            playersMove = ROCK;
+        } else if(playerMove.equals("Paper")) {
+            playersMove = PAPER;
+        } else {
+            playersMove = SCISSORS;
+        }
 
-        move = ;
+        //putting in computer move
+        computerMove();
+
+        //determining winner of game
+        String gameResult;
+        String winner;
+
+        if (playerMove == computerMove()) {
+
+        }
     }
 }
