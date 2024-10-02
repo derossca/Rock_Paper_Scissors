@@ -132,9 +132,9 @@ public class RockPaperScissorsFrame extends JFrame {
 
 
         //adding action listeners to make buttons functional
-        rockBtn.addActionListener(e -> game("R"));
-        paperBtn.addActionListener(e -> game("P"));
-        scissorsBtn.addActionListener(e -> game("S"));
+        rockBtn.addActionListener(e -> game("ROCK"));
+        paperBtn.addActionListener(e -> game("PAPER"));
+        scissorsBtn.addActionListener(e -> game("SCISSORS"));
         quitBtn.addActionListener(e -> System.exit(0));
 
         //adding buttons to the panel
@@ -186,9 +186,9 @@ public class RockPaperScissorsFrame extends JFrame {
 
         int playersMove;
 
-        if(playerMove.equals("Rock")) {
+        if(playerMove.equals("ROCK")) {
             playersMove = ROCK;
-        } else if(playerMove.equals("Paper")) {
+        } else if(playerMove.equals("PAPER")) {
             playersMove = PAPER;
         } else {
             playersMove = SCISSORS;
