@@ -131,9 +131,9 @@ public class RockPaperScissorsFrame extends JFrame {
         quitBtn = new JButton("Quit");
 
         //adding action listeners to make buttons functional
-        rockBtn.addActionListener(e -> playerMove());
-        paperBtn.addActionListener(e -> playerMove());
-        scissorsBtn.addActionListener(e -> playerMove());
+        rockBtn.addActionListener(e -> game("R"));
+        paperBtn.addActionListener(e -> game("P"));
+        scissorsBtn.addActionListener(e -> game("S"));
         quitBtn.addActionListener(e -> System.exit(0));
 
         //adding buttons to the panel
@@ -162,6 +162,7 @@ public class RockPaperScissorsFrame extends JFrame {
     }
 
     //now we need to get a random move from the computer
+    //***NEED HELP HERE***//
     private String computerMove() {
         String [] possibleMoves = {"Rock", "Paper", "Scissors"};
         String computerMove;
@@ -193,10 +194,53 @@ public class RockPaperScissorsFrame extends JFrame {
 
         //determining winner of game
         String gameResult;
-        String winner;
+        String winner = "";
 
-        if (playerMove == computerMove()) {
 
+        if (playersMove == ROCK) {
+            if (computerMove() == "SCISSORS") {
+                gameResult = "Rock breaks Scissors: Player Wins!";
+                winner = "Player";
+            } else if (computerMove() == "PAPER") {
+                gameResult = "Paper covers Rock: Computer Wins!";
+                winner = "Computer";
+            } else {
+                gameResult = "Rock and Rock: Tie!";
+            }
+        } else if (playersMove == PAPER) {
+            if (computerMove() == "ROCK") {
+                gameResult = "Paper covers Rock: Player Wins!";
+                winner = "Player";
+            } else if (computerMove() == "SCISSORS") {
+                gameResult = "Scissors cuts Paper: Computer Wins!";
+                winner = "Computer";
+            } else {
+                gameResult = "Paper and Paper: Tie!";
+            }
+        } else {
+            if (playerMove == "SCISSORS" && computerMove() == "PAPER") {
+                gameResult = "Scissors cuts Paper: Player Wins!";
+                winner = "Player";
+            } else if (playerMove == "SCISSORS" && computerMove() == "ROCK") {
+                gameResult = "Rock breaks Scissors: Computer Wins!";
+            } else {
+                gameResult = "Scissors and Scissors: Tie!";
+            }
         }
+
+        resultsArea.setText(gameResult+ "\n");
+
+        if (winner.equals("Player")) {
+            numPlayerWinCnt++;
+            playerWinsField.setText(String.valueOf(numPlayerWinCnt));
+        } else if (winner.equals("Computer")) {
+            numCompWinCnt++;
+            compWinsField.setText(String.valueOf(numCompWinCnt));
+        } else {
+            numTieCnt++;
+            tieField.setText(String.valueOf(numTieCnt));
+        }
+
+
     }
 }
