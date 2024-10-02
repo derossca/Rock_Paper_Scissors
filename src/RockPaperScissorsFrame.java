@@ -1,18 +1,16 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Random;
 
 public class RockPaperScissorsFrame extends JFrame {
 
-    //Fields
-    JPanel mainPnl;
-    JPanel btnPnl;
-    JPanel statsPnl;
-    JPanel resultsPnl;
+    JFrame frame;
+
+    JPanel mainPanel;
+    JPanel buttonPanel;
+    JPanel statsPanel;
+    JPanel resultsPanel;
 
     JButton rockBtn;
     JButton paperBtn;
@@ -23,211 +21,233 @@ public class RockPaperScissorsFrame extends JFrame {
     ImageIcon paperIcon;
     ImageIcon scissorsIcon;
 
-    JLabel titleLabel;
     JLabel playerWinsLabel;
-    JLabel computerWinsLabel;
+    JLabel compWinsLabel;
     JLabel tieLabel;
 
     JTextField playerWinsField;
-    JTextField computerWinsField;
+    JTextField compWinsField;
     JTextField tieField;
 
-    int playerWinCnt;
-    int computerWinCnt;
-    int tieCnt;
-    int numGamesPlayed;
-
-    JTextArea results;
+    JTextArea resultsArea;
 
     JScrollPane scroll;
 
-    //main panel that encapsulates all other panels
+    int numPlayerWinCnt = 0;
+    int numCompWinCnt = 0;
+    int numTieCnt = 0;
+
+    //constructor for RPS Frame
     public RockPaperScissorsFrame() {
 
-        centerFrame();
+        createCenterFrame();
 
-        mainPnl = new JPanel();
-        mainPnl.setLayout(new BorderLayout());
-
-        buttonsPanel();
-        mainPnl.add(btnPnl, BorderLayout.SOUTH);
-        statsPanel();
-        mainPnl.add(statsPnl, BorderLayout.NORTH);
-        resultsPanel();
-        mainPnl.add(resultsPnl, BorderLayout.CENTER);
-
-        add(mainPnl);
         setTitle("Rock Paper Scissors");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
+
+        mainPanel = new JPanel();
+        mainPanel.setLayout(new BorderLayout());
+
+        createStatsPanel();
+        createResultsPanel();
+        createButtonsPanel();
+
+        add(mainPanel);
+
     }
 
-    //method to make buttons for game play
-    private void buttonsPanel() {
+    //makes the stats panel at the north end of the frame
+    private void createStatsPanel() {
 
-        //making grid layout for buttons panel
-        btnPnl = new JPanel();
-        btnPnl.setLayout(new GridLayout(1, 4));
+        //making new stats jpanel with a grid layout
+        JPanel statsPanel = new JPanel();
+        statsPanel.setLayout(new GridLayout(2,3));
 
-        //adding icons
-        rockIcon = new ImageIcon(new ImageIcon("src/rock.jpg").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
-        paperIcon = new ImageIcon(new ImageIcon("src/paper.jpg").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
-        scissorsIcon = new ImageIcon(new ImageIcon("src/scissors.jpg").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
+        //jlabels for results of game
+        JLabel playerWinsLabel = new JLabel("Player Wins!", JLabel.CENTER);
+        JLabel compWinsLabel = new JLabel("Comp Wins!", JLabel.CENTER);
+        JLabel tieLabel = new JLabel("Tie!", JLabel.CENTER);
 
-        //setting buttons to their icons and adding action events for when they're clicked
-        rockBtn = new JButton(rockIcon);
-        rockBtn.addActionListener(e -> {getMove("R");});
-        btnPnl.add(rockBtn);
-
-        paperBtn = new JButton(paperIcon);
-        paperBtn.addActionListener(e -> {getMove("P");});
-        btnPnl.add(paperBtn);
-
-        scissorsBtn = new JButton(scissorsIcon);
-        scissorsBtn.addActionListener(e -> {getMove("S");});
-        btnPnl.add(scissorsBtn);
-
-        quitBtn = new JButton("Quit");
-        quitBtn.addActionListener(e -> {System.exit(0);});
-
-        //Adding a border to the panel
-        Border border = BorderFactory.createLineBorder(Color.black, 2);
-        btnPnl.setBorder(border);
-
-        //Adding panel to the main frame panel
-        mainPnl.add(btnPnl, BorderLayout.SOUTH);
-    }
-
-    private void statsPanel() {
-
-        //making new jpanel with a grid layout
-        statsPnl = new JPanel();
-        statsPnl.setLayout(new GridLayout(2, 3));
-
-        //adding labels for results of game
-        playerWinsLabel = new JLabel("Player Wins: ", JLabel.CENTER);
-        computerWinsLabel = new JLabel("Computer Wins: ", JLabel.CENTER);
-        tieLabel = new JLabel("Tie: ", JLabel.CENTER);
-
-        //displays stats for player
-        playerWinsField = new JTextField("0");
-        playerWinsField.setHorizontalAlignment(JTextField.CENTER);
+        //text fields for keeping count of player/comp wins and ties
+        playerWinsField =  new JTextField("0", 4);
         playerWinsField.setEditable(false);
-
-        //displays stats for computer
-        computerWinsField = new JTextField("0");
-        computerWinsField.setHorizontalAlignment(JTextField.CENTER);
-        computerWinsField.setEditable(false);
-
-        //displays stats for ties
-        tieField = new JTextField("0");
-        tieField.setHorizontalAlignment(JTextField.CENTER);
+        compWinsField =  new JTextField("0", 4);
+        compWinsField.setEditable(false);
+        tieField =  new JTextField("0", 4);
         tieField.setEditable(false);
 
-        //adding everthing to the panel
-        statsPnl.add(playerWinsLabel);
-        statsPnl.add(playerWinsField);
-        statsPnl.add(computerWinsLabel);
-        statsPnl.add(computerWinsField);
-        statsPnl.add(tieLabel);
-        statsPnl.add(tieField);
+        //adding everything to stats panel
+        statsPanel.add(playerWinsLabel);
+        statsPanel.add(playerWinsField);
+        statsPanel.add(compWinsLabel);
+        statsPanel.add(compWinsField);
+        statsPanel.add(tieLabel);
+        statsPanel.add(tieField);
+
+        mainPanel.add(statsPanel, BorderLayout.NORTH);
     }
 
-    private void resultsPanel() {
-        //making panel
-        resultsPnl = new JPanel();
-        resultsPnl.setLayout(new GridLayout(1, 1));
-        resultsPnl.setSize(400,400);
+    //shows results of game
+    private void createResultsPanel() {
 
-        //putting results in text area
-        results = new JTextArea();
+        //making new panel for results to be dispalyed in
+        JPanel resultsPanel = new JPanel();
 
-        //making it so game results can be scrolled thru
-        scroll = new JScrollPane(results);
-        scroll.setSize(300,300);
+        resultsArea = new JTextArea(7,60);
+        resultsArea.setEditable(false);
+        resultsArea.setLineWrap(true);
+        resultsArea.setWrapStyleWord(true);
+        resultsArea.setFont(new Font("Arial", Font.PLAIN, 18));
+
+        //makes it so you can scroll thru game results played
+        scroll = new JScrollPane(resultsArea);
+
+        mainPanel.add(scroll, BorderLayout.CENTER);
     }
 
-    //method to center frame
-    private void centerFrame() {
-        //getting toolkit and dimensions of screen
+    private void createButtonsPanel() {
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(1, 4));
+
+        //setting and scaling all icons
+        rockIcon = new ImageIcon("src/rock.png");
+        Image rockImage = rockIcon.getImage();
+        Image rockIconImage = rockImage.getScaledInstance(350, 350, Image.SCALE_SMOOTH);
+        rockIcon.setImage(rockIconImage);
+
+        paperIcon = new ImageIcon("src/paper.png");
+        Image paperImage = paperIcon.getImage();
+        Image paperIconImage = paperImage.getScaledInstance(350, 350, Image.SCALE_SMOOTH);
+        paperIcon.setImage(paperIconImage);
+
+        scissorsIcon = new ImageIcon("src/scissors.png");
+        Image scissorsImage = scissorsIcon.getImage();
+        Image scissorsIconImage = scissorsImage.getScaledInstance(350, 350, Image.SCALE_SMOOTH);
+        scissorsIcon.setImage(scissorsIconImage);
+
+        //creating buttons
+        rockBtn = new JButton(rockIcon);
+        paperBtn = new JButton(paperIcon);
+        scissorsBtn = new JButton(scissorsIcon);
+        quitBtn = new JButton("Quit");
+
+        //adding action listeners to make buttons functional
+        rockBtn.addActionListener(e -> game("R"));
+        paperBtn.addActionListener(e -> game("P"));
+        scissorsBtn.addActionListener(e -> game("S"));
+        quitBtn.addActionListener(e -> System.exit(0));
+
+        //adding buttons to the panel
+        buttonPanel.add(rockBtn);
+        buttonPanel.add(paperBtn);
+        buttonPanel.add(scissorsBtn);
+
+        //adding a border to this panel
+        Border border = BorderFactory.createLineBorder(Color.BLACK, 3);
+        buttonPanel.setBorder(border);
+
+        //adding button panel to main panel
+        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+    }
+
+    //centering and sizing the frame
+    private void createCenterFrame() {
+        //screen dimensions
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension screenSize = toolkit.getScreenSize();
-        int screenHeight = screenSize.height;
         int screenWidth = screenSize.width;
-
-        //centering frame
+        int screenHeight = screenSize.height;
+        //center frame
         setSize(screenWidth * 3 / 4, screenHeight * 3 / 4);
-        setLocation(screenWidth / 8 , screenHeight / 8);
+        setLocation(screenWidth / 8, screenHeight / 8);
     }
 
-    private void getMove(String move) {
-        Random rnd = new Random();
-        int i = 0;
-        ArrayList<String> moves = new ArrayList<>();
-        moves.add("Rock");
-        moves.add("Paper");
-        moves.add("Scissors");
 
-        i = rnd.nextInt(moves.size());
+    //now we need to get a random move from the computer
+    //***NEED HELP HERE***//
 
-        String computerMove = moves.get(i);
+    private String computerMove() {
+        String [] possibleMoves = {"Rock", "Paper", "Scissors"};
+        String computersMove;
+        computersMove = possibleMoves[new Random().nextInt(possibleMoves.length)];
 
-        determineWinner(move, computerMove);
+        return computersMove;
     }
 
-    private void determineWinner(String move, String computerMove) {
 
-        //keeping track of num of games played
-        numGamesPlayed++;
-        //result corresponds with array index to display correct winner or tie
-        int result = 0;
-        ArrayList<String> winner = new ArrayList<>();
-        winner.add("Player Wins!");
-        winner.add("Computer Wins!");
-        winner.add("Tie!");
+    //now we need to get player move, compare to computer move, and play game
+    private void game(String playerMove) {
 
-        //determining winner
-        if(move == "Rock" && computerMove == "Rock") {
-            result = 2;
-        } else if(move == "Rock" && computerMove == "Paper") {
-            result = 1;
-        } else if(move == "Rock" && computerMove == "Scissors") {
-            result = 0;
-        } else if(move == "Paper" && computerMove == "Paper") {
-            result = 2;
-        } else if(move == "Paper" && computerMove == "Scissors") {
-            result = 1;
-        } else if(move == "Paper" && computerMove == "Rock") {
-            result = 0;
-        } else if(move == "Scissors" && computerMove == "Scissors") {
-            result = 2;
-        } else if(move == "Scissors" && computerMove == "Rock") {
-            result = 1;
-        } else if(move == "Scissors" && computerMove == "Paper") {
-            result = 0;
+        //getting players move
+        final int ROCK = 0;
+        final int PAPER = 1;
+        final int SCISSORS = 2;
+
+        int playersMove;
+
+        if(playerMove.equals("Rock")) {
+            playersMove = ROCK;
+        } else if(playerMove.equals("Paper")) {
+            playersMove = PAPER;
+        } else {
+            playersMove = SCISSORS;
         }
 
-        //displays results
-        results.append("Game #" + numGamesPlayed + "\t Player Move: " + move + "\t Computer Move: " + computerMove + "\t Result: " + winner.get(result));
+        //putting in computer move
+        //***NEED HELP HERE***//
+        computerMove();
 
-        //updating count of ties, wins based on results
-        updateCount(result);
-    }
+        //determining winner of game
+        String gameResult="";
+        String winner = "";
 
-    private void updateCount(int cnt) {
-        switch (cnt) {
-            case 0:
-                playerWinCnt += 1;
-                playerWinsField.setText(Integer.toString(playerWinCnt));
-                break;
-            case 1:
-                computerWinCnt += 1;
-                computerWinsField.setText(Integer.toString(computerWinCnt));
-                break;
-            case 2:
-                tieCnt += 1;
-                tieField.setText(Integer.toString(tieCnt));
-                break;
+
+        if (playersMove == ROCK) {
+            if (computerMove() == "SCISSORS") {
+                gameResult = "Rock breaks Scissors: Player Wins!";
+                winner = "Player";
+            } else if (computerMove() == "PAPER") {
+                gameResult = "Paper covers Rock: Computer Wins!";
+                winner = "Computer";
+            } else {
+                gameResult = "Rock and Rock: Tie!";
+            }
         }
+
+        if (playersMove == PAPER) {
+            if (computerMove() == "ROCK") {
+                gameResult = "Paper covers Rock: Player Wins!";
+                winner = "Player";
+            } else if (computerMove() == "SCISSORS") {
+                gameResult = "Scissors cuts Paper: Computer Wins!";
+                winner = "Computer";
+            } else {
+                gameResult = "Paper and Paper: Tie!";}
+        }
+
+        if (playersMove == SCISSORS) {
+            if (computerMove() == "PAPER") {
+                gameResult = "Scissors cuts Paper: Player Wins!";
+                winner = "Player";
+            } else if (computerMove() == "ROCK") {
+                gameResult = "Rock breaks Scissors: Computer Wins!";
+            } else {
+                gameResult = "Scissors and Scissors: Tie!";
+            }
+        }
+
+        resultsArea.setText(gameResult+ "\n");
+
+        if (winner.equals("Player")) {
+            numPlayerWinCnt++;
+            playerWinsField.setText(String.valueOf(numPlayerWinCnt));
+        } else if (winner.equals("Computer")) {
+            numCompWinCnt++;
+            compWinsField.setText(String.valueOf(numCompWinCnt));
+        } else {
+            numTieCnt++;
+            tieField.setText(String.valueOf(numTieCnt));
+        }
+
+
     }
 }
