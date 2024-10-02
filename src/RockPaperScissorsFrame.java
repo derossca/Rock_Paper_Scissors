@@ -237,7 +237,7 @@ public class RockPaperScissorsFrame extends JFrame {
             }
         }
 
-        resultsArea.setText(gameResult+ "\n");
+        resultsArea.append(gameResult+ "\n");
 
         if (winner.equals("Player")) {
             numPlayerWinCnt++;
