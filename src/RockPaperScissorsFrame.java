@@ -130,6 +130,7 @@ public class RockPaperScissorsFrame extends JFrame {
         scissorsBtn = new JButton(scissorsIcon);
         quitBtn = new JButton("Quit");
 
+
         //adding action listeners to make buttons functional
         rockBtn.addActionListener(e -> game("R"));
         paperBtn.addActionListener(e -> game("P"));
@@ -140,6 +141,7 @@ public class RockPaperScissorsFrame extends JFrame {
         buttonPanel.add(rockBtn);
         buttonPanel.add(paperBtn);
         buttonPanel.add(scissorsBtn);
+        buttonPanel.add(quitBtn);
 
         //adding a border to this panel
         Border border = BorderFactory.createLineBorder(Color.BLACK, 3);
