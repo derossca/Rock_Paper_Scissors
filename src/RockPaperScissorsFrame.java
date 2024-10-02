@@ -193,10 +193,11 @@ public class RockPaperScissorsFrame extends JFrame {
         }
 
         //putting in computer move
+        //***NEED HELP HERE***//
         computerMove();
 
         //determining winner of game
-        String gameResult;
+        String gameResult="";
         String winner = "";
 
 
@@ -210,7 +211,9 @@ public class RockPaperScissorsFrame extends JFrame {
             } else {
                 gameResult = "Rock and Rock: Tie!";
             }
-        } else if (playersMove == PAPER) {
+        }
+
+        if (playersMove == PAPER) {
             if (computerMove() == "ROCK") {
                 gameResult = "Paper covers Rock: Player Wins!";
                 winner = "Player";
@@ -218,13 +221,14 @@ public class RockPaperScissorsFrame extends JFrame {
                 gameResult = "Scissors cuts Paper: Computer Wins!";
                 winner = "Computer";
             } else {
-                gameResult = "Paper and Paper: Tie!";
-            }
-        } else {
-            if (playerMove == "SCISSORS" && computerMove() == "PAPER") {
+                gameResult = "Paper and Paper: Tie!";}
+        }
+
+        if (playersMove == SCISSORS) {
+            if (computerMove() == "PAPER") {
                 gameResult = "Scissors cuts Paper: Player Wins!";
                 winner = "Player";
-            } else if (playerMove == "SCISSORS" && computerMove() == "ROCK") {
+            } else if (computerMove() == "ROCK") {
                 gameResult = "Rock breaks Scissors: Computer Wins!";
             } else {
                 gameResult = "Scissors and Scissors: Tie!";
