@@ -168,7 +168,7 @@ public class RockPaperScissorsFrame extends JFrame {
     //***NEED HELP HERE***//
 
     private String computerMove() {
-        String [] possibleMoves = {"Rock", "Paper", "Scissors"};
+        String [] possibleMoves = {"ROCK", "PAPER", "SCISSORS"};
         String computersMove;
         computersMove = possibleMoves[new Random().nextInt(possibleMoves.length)];
 
