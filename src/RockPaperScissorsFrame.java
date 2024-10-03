@@ -130,9 +130,13 @@ public class RockPaperScissorsFrame extends JFrame {
 
         //creating buttons
         rockBtn = new JButton(rockIcon);
+        rockBtn.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         paperBtn = new JButton(paperIcon);
+        paperBtn.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         scissorsBtn = new JButton(scissorsIcon);
+        scissorsBtn.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         quitBtn = new JButton("Quit");
+        quitBtn.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
 
         //adding action listeners to make buttons functional
