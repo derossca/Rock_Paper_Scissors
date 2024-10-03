@@ -8,6 +8,8 @@ public class RockPaperScissorsFrame extends JFrame {
     JFrame frame;
 
     JPanel mainPanel;
+
+    //these are used, but made as new JPanel and instantiated in respective methods
     JPanel buttonPanel;
     JPanel statsPanel;
     JPanel resultsPanel;
@@ -165,8 +167,6 @@ public class RockPaperScissorsFrame extends JFrame {
 
 
     //now we need to get a random move from the computer
-    //***NEED HELP HERE***//
-
     private String computerMove() {
         String [] possibleMoves = {"ROCK", "PAPER", "SCISSORS"};
         String computersMove;
@@ -195,7 +195,6 @@ public class RockPaperScissorsFrame extends JFrame {
         }
 
         //putting in computer move
-        //***NEED HELP HERE***//
         computerMove();
 
         //determining winner of game
@@ -237,8 +236,10 @@ public class RockPaperScissorsFrame extends JFrame {
             }
         }
 
+        //adding result of the game to the result panel to display who won
         resultsArea.append(gameResult+ "\n");
 
+        //tallies player, computer wins and ties
         if (winner.equals("Player")) {
             numPlayerWinCnt++;
             playerWinsField.setText(String.valueOf(numPlayerWinCnt));
