@@ -65,9 +65,9 @@ public class RockPaperScissorsFrame extends JFrame {
         statsPanel.setLayout(new GridLayout(2,3));
 
         //jlabels for results of game
-        JLabel playerWinsLabel = new JLabel("Player Wins!", JLabel.CENTER);
-        JLabel compWinsLabel = new JLabel("Comp Wins!", JLabel.CENTER);
-        JLabel tieLabel = new JLabel("Tie!", JLabel.CENTER);
+        playerWinsLabel = new JLabel("Player Wins!", JLabel.CENTER);
+        compWinsLabel = new JLabel("Comp Wins!", JLabel.CENTER);
+        tieLabel = new JLabel("Tie!", JLabel.CENTER);
 
         //text fields for keeping count of player/comp wins and ties
         playerWinsField =  new JTextField("0", 4);
@@ -79,12 +79,14 @@ public class RockPaperScissorsFrame extends JFrame {
 
         //adding everything to stats panel
         statsPanel.add(playerWinsLabel);
-        statsPanel.add(playerWinsField);
         statsPanel.add(compWinsLabel);
-        statsPanel.add(compWinsField);
         statsPanel.add(tieLabel);
+
+        statsPanel.add(playerWinsField);
+        statsPanel.add(compWinsField);
         statsPanel.add(tieField);
 
+        //adding statsPanel to the mainPanel
         mainPanel.add(statsPanel, BorderLayout.NORTH);
     }
 
